@@ -1,0 +1,179 @@
+
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <form class="form-horizontal span6" [formGroup]="authForm" (ngSubmit)="authService()" *ngIf="!authenticated">
+        <fieldset>
+          <legend>Login</legend>
+
+          <div class="control-group">
+            <label class="control-label">Card Number</label>
+            <div class="controls">
+              <div class="row-fluid">
+                <div class="span3">
+                  <input type="text"
+                         formControlName="authCardNo1"
+                         class="input-block-level"
+                         autocomplete="off"
+                         maxlength="4"
+                         pattern="\d{4}"
+                         placeholder="****"
+                         title="First 4 digits" />
+                </div>
+                <div class="span3">
+                  <input type="text"
+                         formControlName="authCardNo2"
+                         class="input-block-level"
+                         autocomplete="off"
+                         maxlength="4"
+                         pattern="\d{4}"
+                         placeholder="****"
+                         title="Second 4 digits" />
+                </div>
+                <div class="span3">
+                  <input type="text"
+                         formControlName="authCardNo3"
+                         class="input-block-level"
+                         autocomplete="off"
+                         maxlength="4"
+                         pattern="\d{4}"
+                         placeholder="****"
+                         title="Third 4 digits" />
+                </div>
+                <div class="span3">
+                  <input type="text"
+                         formControlName="authCardNo4"
+                         class="input-block-level"
+                         autocomplete="off"
+                         maxlength="4"
+                         pattern="\d{4}"
+                         placeholder="****"
+                         title="Fourth 4 digits" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+              <input type="password"
+                     formControlName="password"
+                     id="password"
+                     maxlength="4"
+                     placeholder="****"
+                     class="input-block-level"
+                     title="Enter Password 4 digits" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="button" class="btn" (click)="resetAuthForm()">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <form class="form-horizontal span6" [formGroup]="infoForm" (ngSubmit)="processTransaction()" *ngIf="authenticated && !result">
+        <fieldset>
+          <legend>Payment</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="processingCode">Processing Code</label>
+            <div class="controls">
+              <input type="text" id="processingCode" class="input-block-level"
+                     formControlName="processingCode" title="Enter Processing Code">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="systemTraceNr">System Trace Nr</label>
+            <div class="controls">
+              <input type="number" id="systemTraceNr" class="input-block-level"
+                     formControlName="systemTraceNr" title="Enter System Trace Nr">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="functionCode">Function Code</label>
+            <div class="controls">
+              <input type="number" id="functionCode" class="input-block-level"
+                     formControlName="functionCode" title="Enter Function Code">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="CardHolder">Card Holder's Name</label>
+            <div class="controls">
+              <input type="text" id="CardHolder" class="input-block-level" placeholder="_____  _____"
+                     formControlName="cardHolder" pattern="\w+ \w+.*" title="Fill your first and last name">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Card Number</label>
+            <div class="controls">
+              <div class="row-fluid">
+                <div class="span3">
+                  <input type="text" formControlName="cardNo1" class="input-block-level" autocomplete="off" maxlength="4"
+                         placeholder="****" pattern="\d{4}" title="First 4 digits">
+                </div>
+                <div class="span3">
+                  <input type="text" formControlName="cardNo2" class="input-block-level" autocomplete="off" maxlength="4"
+                         placeholder="****" pattern="\d{4}" title="Second 4 digits">
+                </div>
+                <div class="span3">
+                  <input type="text" formControlName="cardNo3" class="input-block-level" autocomplete="off" maxlength="4"
+                         placeholder="****" pattern="\d{4}" title="Third 4 digits">
+                </div>
+                <div class="span3">
+                  <input type="text" formControlName="cardNo4" class="input-block-level" autocomplete="off" maxlength="4"
+                         placeholder="****" pattern="\d{4}" title="Fourth 4 digits">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="amountTrxn">Amount Trxn</label>
+            <div class="controls">
+              <input type="number" id="amountTrxn" class="input-block-level" pattern="[1-9]\d{3}"
+                     formControlName="amountTrxn" title="Enter Amount Trxn">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="currencyCode">Currency Code</label>
+            <div class="controls">
+              <input type="number" id="currencyCode" class="input-block-level"
+                     formControlName="currencyCode" title="Enter Currency Code">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="button" class="btn" (click)="resetInfoForm()">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5 mb-5" *ngIf="result">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h4>Payment</h4>
+      <ul class="timeline">
+        <li>
+          <a href="#" class="float-right">Response Code</a>
+          <p>{{ result.ResponseCode }}</p>
+        </li>
+        <li>
+          <a href="#" class="float-right">Message</a>
+          <p>{{ result.Message }}</p>
+        </li>
+        <li>
+          <a href="#" class="float-right">Approval Code</a>
+          <p>{{ result.ApprovalCode }}</p>
+        </li>
+        <li>
+          <a href="#" class="float-right">Date Time</a>
+          <p>{{ result.DateTime }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

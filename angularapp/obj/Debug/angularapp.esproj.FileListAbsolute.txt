@@ -1,0 +1,2 @@
+E:\Task Assignment\PaymentTransaction\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
+E:\Task Assignment\PaymentTransaction\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache
